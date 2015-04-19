@@ -383,7 +383,7 @@ describe Goldiloader do
           expect(blogs.first.posts_ordered_by_author.map(&:author).map(&:name)).to eq sorted_post_authors
         end
 
-        if ActiveRecord.gem_version >= Gem::Version.new('4.2')
+        if Goldiloader::Compatibility.joins_eager_loadable?
           it_behaves_like "it auto eager loads the association", :posts_ordered_by_author
         else
           it_behaves_like "it doesn't auto eager the association", :posts_ordered_by_author
@@ -400,7 +400,7 @@ describe Goldiloader do
           expect(blogs.first.posts_ordered_by_author.map(&:author).map(&:address).map(&:city)).to eq sorted_post_cities
         end
 
-        if ActiveRecord.gem_version >= Gem::Version.new('4.2')
+        if Goldiloader::Compatibility.joins_eager_loadable?
           it_behaves_like "it auto eager loads the association", :authors_with_join
         else
           it_behaves_like "it doesn't auto eager the association", :authors_with_join
